@@ -4,6 +4,7 @@ import { generateId } from "@/lib/utils";
 
 export function useThumbnails() {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
+  const [globalChannelName, setGlobalChannelName] = useState("");
 
   const addThumbnail = useCallback((file: File) => {
     const imageUrl = URL.createObjectURL(file);
@@ -43,5 +44,7 @@ export function useThumbnails() {
     removeThumbnail,
     updateVideoTitle,
     updateChannelName,
+    globalChannelName,
+    setGlobalChannelName,
   };
 }

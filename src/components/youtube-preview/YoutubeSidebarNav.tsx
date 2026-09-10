@@ -24,7 +24,11 @@ const mainItems: NavItemDef[] = [
     label: "Inscrições",
     icon: (c) => (
       <svg viewBox="0 0 24 24" className={c}>
-        <path d="M10 18v-6l5 3zM20 6.4a2.5 2.5 0 0 0-1.77-1.77C16.6 4.2 12 4.2 12 4.2s-4.6 0-6.23.43A2.5 2.5 0 0 0 4 6.4 26 26 0 0 0 3.6 11a26 26 0 0 0 .4 4.6 2.5 2.5 0 0 0 1.77 1.77c1.63.43 6.23.43 6.23.43s4.6 0 6.23-.43A2.5 2.5 0 0 0 20 15.6a26 26 0 0 0 .4-4.6 26 26 0 0 0-.4-4.6z" />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M10 18v-6l5 3zM20 6.4a2.5 2.5 0 0 0-1.77-1.77C16.6 4.2 12 4.2 12 4.2s-4.6 0-6.23.43A2.5 2.5 0 0 0 4 6.4 26 26 0 0 0 3.6 11a26 26 0 0 0 .4 4.6 2.5 2.5 0 0 0 1.77 1.77c1.63.43 6.23.43 6.23.43s4.6 0 6.23-.43A2.5 2.5 0 0 0 20 15.6a26 26 0 0 0 .4-4.6 26 26 0 0 0-.4-4.6z"
+        />
       </svg>
     ),
   },
@@ -49,29 +53,49 @@ const libraryItems: NavItemDef[] = [
   },
 ];
 
-function NavSection({ items }: { items: NavItemDef[] }) {
+function NavSection({
+  items,
+  collapsed,
+}: {
+  items: NavItemDef[];
+  collapsed: boolean;
+}) {
   return (
     <nav className="flex flex-col gap-1 py-2">
       {items.map((item) => (
         <button
           key={item.label}
           type="button"
-          className="flex items-center gap-6 rounded-lg px-3 py-2.5 text-left text-sm text-[var(--yt-text-primary)] hover:bg-[var(--yt-hover)]"
+          className={
+            collapsed
+              ? "flex flex-col items-center gap-1 rounded-lg px-1 py-4 text-center text-[10px] text-[var(--yt-text-primary)] hover:bg-[var(--yt-hover)]"
+              : "flex items-center gap-6 rounded-lg px-3 py-2.5 text-left text-sm text-[var(--yt-text-primary)] hover:bg-[var(--yt-hover)]"
+          }
         >
           {item.icon("h-6 w-6 shrink-0 fill-[var(--yt-icon)]")}
-          <span>{item.label}</span>
+          <span className={collapsed ? "leading-tight" : undefined}>
+            {item.label}
+          </span>
         </button>
       ))}
     </nav>
   );
 }
 
-export function YoutubeSidebarNav() {
+interface YoutubeSidebarNavProps {
+  collapsed: boolean;
+}
+
+export function YoutubeSidebarNav({ collapsed }: YoutubeSidebarNavProps) {
   return (
-    <aside className="flex w-60 shrink-0 flex-col overflow-y-auto border-r border-[var(--yt-border)] bg-[var(--yt-bg)] px-2">
-      <NavSection items={mainItems} />
+    <aside
+      className={`flex shrink-0 flex-col overflow-y-auto overflow-x-hidden border-r border-[var(--yt-border)] bg-[var(--yt-bg)] transition-[width] duration-200 ease-out ${
+        collapsed ? "w-18 px-1" : "w-60 px-2"
+      }`}
+    >
+      <NavSection items={mainItems} collapsed={collapsed} />
       <div className="mx-3 my-1 border-t border-[var(--yt-border)]" />
-      <NavSection items={libraryItems} />
+      <NavSection items={libraryItems} collapsed={collapsed} />
     </aside>
   );
 }

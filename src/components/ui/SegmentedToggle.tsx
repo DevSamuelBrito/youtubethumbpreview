@@ -20,10 +20,10 @@ export function SegmentedToggle<T extends string>({
   const selectedIndex = options.findIndex((option) => option.value === value);
 
   return (
-    <div className="relative inline-flex w-full rounded-full bg-neutral-100 p-1">
+    <div className="relative inline-flex w-full rounded-full bg-neutral-200 p-1 shadow-[inset_0_1px_3px_rgba(0,0,0,0.25)]">
       <span
         aria-hidden
-        className="absolute top-1 bottom-1 left-1 rounded-full bg-white shadow-sm transition-transform duration-200 ease-out"
+        className="absolute top-1 bottom-1 left-1 rounded-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.15),0_2px_4px_rgba(0,0,0,0.15)] transition-transform duration-200 ease-out"
         style={{
           width: "calc(50% - 4px)",
           transform:

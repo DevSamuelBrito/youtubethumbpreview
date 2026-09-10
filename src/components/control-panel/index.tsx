@@ -2,6 +2,7 @@
 
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
+import { Input } from "@/components/ui/Input";
 import { ThumbnailUploader } from "./ThumbnailUploader";
 import { ThumbnailListItem } from "./ThumbnailListItem";
 import { DeviceSelect } from "./DeviceSelect";
@@ -14,6 +15,8 @@ export function ControlPanel() {
     removeThumbnail,
     updateVideoTitle,
     updateChannelName,
+    globalChannelName,
+    setGlobalChannelName,
   } = useThumbnailsContext();
 
   const { theme, setTheme, device, setDevice } = usePreviewSettingsContext();
@@ -31,12 +34,21 @@ export function ControlPanel() {
 
       <h2 className="text-sm font-semibold text-neutral-900">Thumbnails</h2>
       <ThumbnailUploader onAdd={addThumbnail} />
+
+      <Input
+        label="Nome do canal (padrão para todas)"
+        placeholder="Nome do canal"
+        value={globalChannelName}
+        onChange={(event) => setGlobalChannelName(event.target.value)}
+      />
+
       <ul className="flex flex-col gap-3">
         {thumbnails.map((thumbnail, index) => (
           <ThumbnailListItem
             key={thumbnail.id}
             thumbnail={thumbnail}
             index={index}
+            channelNamePlaceholder={globalChannelName || "Nome do canal"}
             onUpdateVideoTitle={updateVideoTitle}
             onUpdateChannelName={updateChannelName}
             onRemove={removeThumbnail}
