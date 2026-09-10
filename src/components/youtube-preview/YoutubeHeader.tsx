@@ -11,9 +11,9 @@ export function YoutubeHeader() {
         </svg>
       </button>
 
-      <div className="flex max-w-[720px] flex-1 items-center gap-4">
-        <div className="flex flex-1 items-center">
-          <div className="flex h-10 flex-1 items-center rounded-l-full border border-[var(--yt-search-border)] bg-[var(--yt-search-bg)] pl-4">
+      <div className="flex min-w-0 max-w-[720px] flex-1 items-center gap-4">
+        <div className="flex min-w-0 flex-1 items-center">
+          <div className="flex h-10 min-w-0 flex-1 items-center rounded-l-full border border-[var(--yt-search-border)] bg-[var(--yt-search-bg)] pl-4">
             <input
               type="text"
               placeholder="Pesquisar"
