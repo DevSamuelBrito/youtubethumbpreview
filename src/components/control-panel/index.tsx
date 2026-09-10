@@ -20,7 +20,7 @@ export function ControlPanel() {
     usePreviewSettingsContext();
 
   return (
-    <aside className="flex w-80 shrink-0 flex-col gap-4 overflow-y-auto border-r border-neutral-200 bg-white p-4">
+    <aside className="flex max-h-100 w-full shrink-0 flex-col gap-4 overflow-y-auto border-b border-neutral-200 bg-white p-4 sm:max-h-125 lg:h-full lg:max-h-none lg:w-80 lg:border-r lg:border-b-0">
       <h2 className="text-sm font-semibold text-neutral-900">Thumbnails</h2>
       <ThumbnailUploader onAdd={addThumbnail} />
       <ul className="flex flex-col gap-3">

@@ -2,6 +2,7 @@
 
 import { YoutubeHeader } from "./YoutubeHeader";
 import { YoutubeSidebarNav } from "./YoutubeSidebarNav";
+import { FilterChips } from "./FilterChips";
 import { VideoGrid } from "./VideoGrid";
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
 
@@ -21,6 +22,7 @@ export function YoutubePreview() {
         <div className="flex flex-1 overflow-hidden">
           {!isMobile && <YoutubeSidebarNav />}
           <main className="flex-1 overflow-y-auto">
+            <FilterChips />
             <VideoGrid />
           </main>
         </div>
