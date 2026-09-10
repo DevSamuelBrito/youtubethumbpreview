@@ -32,7 +32,7 @@ export function ChannelVideoGrid({ featured = false }: ChannelVideoGridProps) {
           views: mock.views,
           uploadedAt: mock.uploadedAt,
           duration: mock.duration,
-          thumbnailGradient: mock.thumbnailGradient,
+          thumbnailUrl: mock.thumbnailUrl,
         };
       }
 

@@ -54,10 +54,7 @@ export function SearchResultItem({
       </div>
 
       <div className="flex min-w-0 flex-col gap-1">
-        <h3
-          className="overflow-hidden text-base leading-6 font-medium text-[var(--yt-text-primary)]"
-          style={{ maxHeight: "3rem" }}
-        >
+        <h3 className="text-base leading-6 font-medium text-[var(--yt-text-primary)]">
           {title}
         </h3>
         <p className="text-xs text-[var(--yt-text-secondary)]">

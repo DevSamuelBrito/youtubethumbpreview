@@ -1,3 +1,4 @@
+import { fakerPT_BR as faker } from "@faker-js/faker";
 import type { VideoCardProps } from "./VideoCard";
 
 export interface MockVideo extends VideoCardProps {
@@ -5,93 +6,85 @@ export interface MockVideo extends VideoCardProps {
   description: string;
 }
 
-export const mockVideos: MockVideo[] = [
-  {
-    id: "1",
-    title: "Como organizar sua rotina em 5 passos simples e práticos",
-    channelName: "Canal Exemplo",
-    views: "128 mil visualizações",
-    uploadedAt: "há 2 dias",
-    duration: "12:34",
-    thumbnailGradient: "linear-gradient(135deg,#f97316,#ea580c)",
-    description:
-      "Nesse vídeo eu mostro como organizei minha rotina usando técnicas simples que qualquer pessoa pode aplicar no dia a dia.",
-  },
-  {
-    id: "2",
-    title: "Receita rápida para o café da manhã",
-    channelName: "Cozinha Simples",
-    views: "45 mil visualizações",
-    uploadedAt: "há 5 horas",
-    duration: "8:02",
-    thumbnailGradient: "linear-gradient(135deg,#22c55e,#15803d)",
-    description:
-      "Uma receita prática e saudável pra começar o dia com mais energia, usando poucos ingredientes.",
-  },
-  {
-    id: "3",
-    title: "Review completo: vale a pena em 2026?",
-    channelName: "Tech Diário",
-    views: "982 mil visualizações",
-    uploadedAt: "há 1 semana",
-    duration: "21:17",
-    thumbnailGradient: "linear-gradient(135deg,#3b82f6,#1d4ed8)",
-    description:
-      "Testei por semanas antes de gravar esse review completo, com prós, contras e comparação de preço.",
-  },
-  {
-    id: "4",
-    title: "Treino completo de 20 minutos sem equipamentos",
-    channelName: "Vida Ativa",
-    views: "310 mil visualizações",
-    uploadedAt: "há 3 dias",
-    duration: "20:00",
-    thumbnailGradient: "linear-gradient(135deg,#ec4899,#be185d)",
-    description:
-      "Treino funcional completo que você pode fazer em casa, sem precisar de nenhum equipamento.",
-  },
-  {
-    id: "5",
-    title: "Como esse app mudou minha produtividade",
-    channelName: "Produtividade Real",
-    views: "76 mil visualizações",
-    uploadedAt: "há 12 horas",
-    duration: "9:48",
-    thumbnailGradient: "linear-gradient(135deg,#a855f7,#7e22ce)",
-    description:
-      "Depois de testar várias ferramentas, encontrei uma que realmente mudou minha forma de organizar tarefas.",
-  },
-  {
-    id: "6",
-    title: "Viagem de carro pelo litoral: vale a pena?",
-    channelName: "Mundo Afora",
-    views: "1,2 mi visualizações",
-    uploadedAt: "há 2 semanas",
-    duration: "15:29",
-    thumbnailGradient: "linear-gradient(135deg,#14b8a6,#0f766e)",
-    description:
-      "Fizemos essa viagem de carro pela costa e trago aqui os melhores paradas, custos e dicas.",
-  },
-  {
-    id: "7",
-    title: "Aprenda o básico em apenas 10 minutos",
-    channelName: "Aprenda Já",
-    views: "203 mil visualizações",
-    uploadedAt: "há 4 dias",
-    duration: "10:11",
-    thumbnailGradient: "linear-gradient(135deg,#eab308,#a16207)",
-    description:
-      "Um guia rápido e direto ao ponto pra você sair do zero e já aplicar o que aprendeu hoje mesmo.",
-  },
-  {
-    id: "8",
-    title: "Montagem de setup completo gastando pouco",
-    channelName: "Setup Gamer",
-    views: "540 mil visualizações",
-    uploadedAt: "há 6 dias",
-    duration: "18:53",
-    thumbnailGradient: "linear-gradient(135deg,#ef4444,#b91c1c)",
-    description:
-      "Monto um setup completo com peças baratas e mostro onde economizar sem perder qualidade.",
-  },
+const MOCK_VIDEO_COUNT = 32;
+
+faker.seed(1234);
+
+function formatViews(count: number): string {
+  if (count >= 1_000_000) {
+    return `${(count / 1_000_000).toFixed(1).replace(".", ",")} mi visualizações`;
+  }
+  if (count >= 1_000) {
+    return `${Math.round(count / 1000)} mil visualizações`;
+  }
+  return `${count} visualizações`;
+}
+
+function formatDuration(totalSeconds: number): string {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  const paddedSeconds = String(seconds).padStart(2, "0");
+
+  if (hours > 0) {
+    return `${hours}:${String(minutes).padStart(2, "0")}:${paddedSeconds}`;
+  }
+  return `${minutes}:${paddedSeconds}`;
+}
+
+function formatRelativeTime(date: Date): string {
+  const diffMs = Date.now() - date.getTime();
+  const diffMinutes = Math.round(diffMs / 60_000);
+  const diffHours = Math.round(diffMs / 3_600_000);
+  const diffDays = Math.round(diffMs / 86_400_000);
+  const diffWeeks = Math.round(diffDays / 7);
+  const diffMonths = Math.round(diffDays / 30);
+
+  if (diffMinutes < 60) return `há ${diffMinutes} minutos`;
+  if (diffHours < 24) return `há ${diffHours} horas`;
+  if (diffDays < 7) return `há ${diffDays} dias`;
+  if (diffWeeks < 5) return `há ${diffWeeks} semanas`;
+  return `há ${diffMonths} meses`;
+}
+
+const titleTemplates: Array<() => string> = [
+  () =>
+    `Como escolher ${faker.commerce.productName()} em ${faker.number.int({ min: 5, max: 40 })} minutos`,
+  () => `${faker.commerce.productName()}: vale a pena em ${new Date().getFullYear()}?`,
+  () => `Testei ${faker.commerce.productName()} por uma semana inteira`,
+  () =>
+    `${faker.number.int({ min: 3, max: 10 })} dicas essenciais sobre ${faker.commerce.department()}`,
+  () => `Viagem para ${faker.location.city()}: vale a pena?`,
+  () => `A verdade sobre ${faker.company.name()}`,
+  () => `Review completo: ${faker.commerce.productName()}`,
+  () => `Como economizar comprando ${faker.commerce.product()}`,
+  () => `Montei um setup completo gastando pouco em ${faker.location.city()}`,
+  () => `Aprenda ${faker.commerce.department()} do zero em uma aula só`,
 ];
+
+export const mockVideos: MockVideo[] = Array.from(
+  { length: MOCK_VIDEO_COUNT },
+  (_, index) => {
+    const id = `mock-${index}`;
+    const titleTemplate =
+      titleTemplates[faker.number.int({ min: 0, max: titleTemplates.length - 1 })];
+    const views = faker.number.int({ min: 500, max: 5_000_000 });
+    const durationSeconds = faker.number.int({ min: 60, max: 1500 });
+    const uploadedAt = faker.date.recent({ days: 60 });
+    const useCompanyName = faker.datatype.boolean();
+
+    return {
+      id,
+      title: titleTemplate(),
+      channelName: useCompanyName
+        ? faker.company.name()
+        : faker.internet.displayName(),
+      channelAvatarUrl: `https://picsum.photos/seed/${id}-avatar/64/64`,
+      views: formatViews(views),
+      uploadedAt: formatRelativeTime(uploadedAt),
+      duration: formatDuration(durationSeconds),
+      thumbnailUrl: `https://picsum.photos/seed/${id}/400/225`,
+      description: faker.lorem.sentences(2),
+    };
+  },
+);
