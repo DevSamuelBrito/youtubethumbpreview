@@ -3,4 +3,5 @@ export interface Thumbnail {
   imageUrl: string;
   videoTitle: string;
   channelName: string;
+  description: string;
 }

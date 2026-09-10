@@ -1,15 +1,19 @@
 "use client";
 
-import { VideoCard } from "./VideoCard";
+import { SearchResultItem } from "./SearchResultItem";
 import { mockVideos } from "./mockVideos";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 
-export function VideoGrid() {
+interface SearchResultsListProps {
+  isMobile: boolean;
+}
+
+export function SearchResultsList({ isMobile }: SearchResultsListProps) {
   const { thumbnails, globalChannelName, globalChannelAvatarUrl } =
     useThumbnailsContext();
   const slotCount = Math.max(thumbnails.length, mockVideos.length);
 
-  const cards = Array.from({ length: slotCount }, (_, index) => {
+  const results = Array.from({ length: slotCount }, (_, index) => {
     const thumbnail = thumbnails[index];
     const mock = mockVideos[index % mockVideos.length];
 
@@ -26,14 +30,15 @@ export function VideoGrid() {
       views: mock.views,
       uploadedAt: mock.uploadedAt,
       duration: mock.duration,
+      description: thumbnail.description || mock.description,
       thumbnailUrl: thumbnail.imageUrl,
     };
   });
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] items-start gap-x-4 gap-y-8 p-6">
-      {cards.map(({ key, ...video }) => (
-        <VideoCard key={key} {...video} />
+    <div className="flex max-w-4xl flex-col divide-y divide-[var(--yt-border)] px-6">
+      {results.map(({ key, ...result }) => (
+        <SearchResultItem key={key} isMobile={isMobile} {...result} />
       ))}
     </div>
   );

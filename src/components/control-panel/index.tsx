@@ -7,6 +7,7 @@ import { ChannelAvatarUploader } from "./ChannelAvatarUploader";
 import { ThumbnailUploader } from "./ThumbnailUploader";
 import { ThumbnailListItem } from "./ThumbnailListItem";
 import { DeviceSelect } from "./DeviceSelect";
+import { PageViewSelect } from "./PageViewSelect";
 import { ThemeToggle } from "./ThemeToggle";
 
 function PanelToggleIcon() {
@@ -37,13 +38,15 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
     removeThumbnail,
     updateVideoTitle,
     updateChannelName,
+    updateDescription,
     globalChannelName,
     setGlobalChannelName,
     globalChannelAvatarUrl,
     setGlobalChannelAvatar,
   } = useThumbnailsContext();
 
-  const { theme, setTheme, device, setDevice } = usePreviewSettingsContext();
+  const { theme, setTheme, device, setDevice, pageView, setPageView } =
+    usePreviewSettingsContext();
 
   return (
     <aside className="flex h-full w-full flex-col gap-4 overflow-y-auto border-b border-neutral-200 bg-white p-4 lg:border-r lg:border-b-0">
@@ -73,6 +76,7 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
           onChange={(event) => setGlobalChannelName(event.target.value)}
         />
         <DeviceSelect device={device} onChange={setDevice} />
+        <PageViewSelect pageView={pageView} onChange={setPageView} />
         <ThemeToggle theme={theme} onChange={setTheme} />
       </div>
 
@@ -88,6 +92,7 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
             channelNamePlaceholder={globalChannelName || "Nome do canal"}
             onUpdateVideoTitle={updateVideoTitle}
             onUpdateChannelName={updateChannelName}
+            onUpdateDescription={updateDescription}
             onRemove={removeThumbnail}
           />
         ))}

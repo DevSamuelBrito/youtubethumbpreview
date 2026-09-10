@@ -5,11 +5,13 @@ import { YoutubeHeader } from "./YoutubeHeader";
 import { YoutubeSidebarNav } from "./YoutubeSidebarNav";
 import { FilterChips } from "./FilterChips";
 import { VideoGrid } from "./VideoGrid";
+import { SearchFiltersBar } from "./SearchFiltersBar";
+import { SearchResultsList } from "./SearchResultsList";
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 
 export function YoutubePreview() {
-  const { theme, device } = usePreviewSettingsContext();
+  const { theme, device, pageView } = usePreviewSettingsContext();
   const { globalChannelAvatarUrl } = useThumbnailsContext();
   const isMobile = device === "mobile";
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -39,8 +41,17 @@ export function YoutubePreview() {
         <div className="relative flex flex-1 overflow-hidden">
           {!isMobile && <YoutubeSidebarNav collapsed={isSidebarCollapsed} />}
           <main className="flex-1 overflow-y-auto">
-            <FilterChips />
-            <VideoGrid />
+            {pageView === "home" ? (
+              <>
+                <FilterChips />
+                <VideoGrid />
+              </>
+            ) : (
+              <>
+                <SearchFiltersBar />
+                <SearchResultsList isMobile={isMobile} />
+              </>
+            )}
           </main>
 
           {isMobile && (

@@ -18,7 +18,13 @@ export function useThumbnails() {
     const imageUrl = URL.createObjectURL(file);
     setThumbnails((prev) => [
       ...prev,
-      { id: generateId(), imageUrl, videoTitle: "", channelName: "" },
+      {
+        id: generateId(),
+        imageUrl,
+        videoTitle: "",
+        channelName: "",
+        description: "",
+      },
     ]);
   }, []);
 
@@ -46,12 +52,21 @@ export function useThumbnails() {
     );
   }, []);
 
+  const updateDescription = useCallback((id: string, description: string) => {
+    setThumbnails((prev) =>
+      prev.map((thumbnail) =>
+        thumbnail.id === id ? { ...thumbnail, description } : thumbnail,
+      ),
+    );
+  }, []);
+
   return {
     thumbnails,
     addThumbnail,
     removeThumbnail,
     updateVideoTitle,
     updateChannelName,
+    updateDescription,
     globalChannelName,
     setGlobalChannelName,
     globalChannelAvatarUrl,

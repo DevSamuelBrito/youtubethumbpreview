@@ -2,6 +2,7 @@ import type { VideoCardProps } from "./VideoCard";
 
 export interface MockVideo extends VideoCardProps {
   id: string;
+  description: string;
 }
 
 export const mockVideos: MockVideo[] = [
@@ -13,6 +14,8 @@ export const mockVideos: MockVideo[] = [
     uploadedAt: "há 2 dias",
     duration: "12:34",
     thumbnailGradient: "linear-gradient(135deg,#f97316,#ea580c)",
+    description:
+      "Nesse vídeo eu mostro como organizei minha rotina usando técnicas simples que qualquer pessoa pode aplicar no dia a dia.",
   },
   {
     id: "2",
@@ -22,6 +25,8 @@ export const mockVideos: MockVideo[] = [
     uploadedAt: "há 5 horas",
     duration: "8:02",
     thumbnailGradient: "linear-gradient(135deg,#22c55e,#15803d)",
+    description:
+      "Uma receita prática e saudável pra começar o dia com mais energia, usando poucos ingredientes.",
   },
   {
     id: "3",
@@ -31,6 +36,8 @@ export const mockVideos: MockVideo[] = [
     uploadedAt: "há 1 semana",
     duration: "21:17",
     thumbnailGradient: "linear-gradient(135deg,#3b82f6,#1d4ed8)",
+    description:
+      "Testei por semanas antes de gravar esse review completo, com prós, contras e comparação de preço.",
   },
   {
     id: "4",
@@ -40,6 +47,8 @@ export const mockVideos: MockVideo[] = [
     uploadedAt: "há 3 dias",
     duration: "20:00",
     thumbnailGradient: "linear-gradient(135deg,#ec4899,#be185d)",
+    description:
+      "Treino funcional completo que você pode fazer em casa, sem precisar de nenhum equipamento.",
   },
   {
     id: "5",
@@ -49,6 +58,8 @@ export const mockVideos: MockVideo[] = [
     uploadedAt: "há 12 horas",
     duration: "9:48",
     thumbnailGradient: "linear-gradient(135deg,#a855f7,#7e22ce)",
+    description:
+      "Depois de testar várias ferramentas, encontrei uma que realmente mudou minha forma de organizar tarefas.",
   },
   {
     id: "6",
@@ -58,6 +69,8 @@ export const mockVideos: MockVideo[] = [
     uploadedAt: "há 2 semanas",
     duration: "15:29",
     thumbnailGradient: "linear-gradient(135deg,#14b8a6,#0f766e)",
+    description:
+      "Fizemos essa viagem de carro pela costa e trago aqui os melhores paradas, custos e dicas.",
   },
   {
     id: "7",
@@ -67,6 +80,8 @@ export const mockVideos: MockVideo[] = [
     uploadedAt: "há 4 dias",
     duration: "10:11",
     thumbnailGradient: "linear-gradient(135deg,#eab308,#a16207)",
+    description:
+      "Um guia rápido e direto ao ponto pra você sair do zero e já aplicar o que aprendeu hoje mesmo.",
   },
   {
     id: "8",
@@ -76,5 +91,7 @@ export const mockVideos: MockVideo[] = [
     uploadedAt: "há 6 dias",
     duration: "18:53",
     thumbnailGradient: "linear-gradient(135deg,#ef4444,#b91c1c)",
+    description:
+      "Monto um setup completo com peças baratas e mostro onde economizar sem perder qualidade.",
   },
 ];
