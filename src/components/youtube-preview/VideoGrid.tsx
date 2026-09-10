@@ -5,7 +5,8 @@ import { mockVideos } from "./mockVideos";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 
 export function VideoGrid() {
-  const { thumbnails, globalChannelName } = useThumbnailsContext();
+  const { thumbnails, globalChannelName, globalChannelAvatarUrl } =
+    useThumbnailsContext();
   const slotCount = Math.max(thumbnails.length, mockVideos.length);
 
   const cards = Array.from({ length: slotCount }, (_, index) => {
@@ -19,7 +20,9 @@ export function VideoGrid() {
     return {
       key: thumbnail.id,
       title: thumbnail.videoTitle || "Título do vídeo",
-      channelName: thumbnail.channelName || globalChannelName || "Nome do canal",
+      channelName:
+        thumbnail.channelName || globalChannelName || "Nome do canal",
+      channelAvatarUrl: globalChannelAvatarUrl || undefined,
       views: mock.views,
       uploadedAt: mock.uploadedAt,
       duration: mock.duration,

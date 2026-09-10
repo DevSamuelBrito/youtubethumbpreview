@@ -6,9 +6,11 @@ import { YoutubeSidebarNav } from "./YoutubeSidebarNav";
 import { FilterChips } from "./FilterChips";
 import { VideoGrid } from "./VideoGrid";
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
+import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 
 export function YoutubePreview() {
   const { theme, device } = usePreviewSettingsContext();
+  const { globalChannelAvatarUrl } = useThumbnailsContext();
   const isMobile = device === "mobile";
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -29,7 +31,11 @@ export function YoutubePreview() {
           isMobile ? "w-105" : "w-full"
         }`}
       >
-        <YoutubeHeader isMobile={isMobile} onToggleSidebar={handleToggleSidebar} />
+        <YoutubeHeader
+          isMobile={isMobile}
+          onToggleSidebar={handleToggleSidebar}
+          channelAvatarUrl={globalChannelAvatarUrl}
+        />
         <div className="relative flex flex-1 overflow-hidden">
           {!isMobile && <YoutubeSidebarNav collapsed={isSidebarCollapsed} />}
           <main className="flex-1 overflow-y-auto">

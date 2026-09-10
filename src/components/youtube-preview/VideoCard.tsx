@@ -1,6 +1,7 @@
 export interface VideoCardProps {
   title: string;
   channelName: string;
+  channelAvatarUrl?: string;
   views: string;
   uploadedAt: string;
   duration: string;
@@ -11,6 +12,7 @@ export interface VideoCardProps {
 export function VideoCard({
   title,
   channelName,
+  channelAvatarUrl,
   views,
   uploadedAt,
   duration,
@@ -40,7 +42,16 @@ export function VideoCard({
       </div>
 
       <div className="flex gap-3">
-        <div className="h-9 w-9 shrink-0 rounded-full bg-[var(--yt-border)]" />
+        <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-[var(--yt-border)]">
+          {channelAvatarUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element -- imagem vem de blob: URL local, incompatível com next/image
+            <img
+              src={channelAvatarUrl}
+              alt=""
+              className="h-full w-full object-cover"
+            />
+          ) : null}
+        </div>
         <div className="flex min-w-0 flex-col">
           <h3 className="line-clamp-2 text-sm leading-5 font-medium text-[var(--yt-text-primary)]">
             {title}

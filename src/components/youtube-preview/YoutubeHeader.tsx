@@ -1,9 +1,14 @@
 interface YoutubeHeaderProps {
   isMobile: boolean;
   onToggleSidebar: () => void;
+  channelAvatarUrl?: string;
 }
 
-export function YoutubeHeader({ isMobile, onToggleSidebar }: YoutubeHeaderProps) {
+export function YoutubeHeader({
+  isMobile,
+  onToggleSidebar,
+  channelAvatarUrl,
+}: YoutubeHeaderProps) {
   return (
     <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-[var(--yt-border)] bg-[var(--yt-header-bg)] px-4">
       <div className="flex shrink-0 items-center gap-1">
@@ -90,7 +95,16 @@ export function YoutubeHeader({ isMobile, onToggleSidebar }: YoutubeHeaderProps)
             <path d="M12 22a2.2 2.2 0 0 0 2.2-2.2h-4.4A2.2 2.2 0 0 0 12 22zm7-6v-5a7 7 0 0 0-5.5-6.84V3a1.5 1.5 0 0 0-3 0v1.16A7 7 0 0 0 5 11v5l-2 2v1h18v-1z" />
           </svg>
         </button>
-        <div className="h-8 w-8 shrink-0 rounded-full bg-gradient-to-br from-[var(--yt-hover)] to-[var(--yt-border)]" />
+        <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-[var(--yt-hover)] to-[var(--yt-border)]">
+          {channelAvatarUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element -- imagem vem de blob: URL local, incompatível com next/image
+            <img
+              src={channelAvatarUrl}
+              alt=""
+              className="h-full w-full object-cover"
+            />
+          ) : null}
+        </div>
       </div>
     </header>
   );

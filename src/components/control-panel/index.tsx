@@ -3,6 +3,7 @@
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
 import { Input } from "@/components/ui/Input";
+import { ChannelAvatarUploader } from "./ChannelAvatarUploader";
 import { ThumbnailUploader } from "./ThumbnailUploader";
 import { ThumbnailListItem } from "./ThumbnailListItem";
 import { DeviceSelect } from "./DeviceSelect";
@@ -38,6 +39,8 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
     updateChannelName,
     globalChannelName,
     setGlobalChannelName,
+    globalChannelAvatarUrl,
+    setGlobalChannelAvatar,
   } = useThumbnailsContext();
 
   const { theme, setTheme, device, setDevice } = usePreviewSettingsContext();
@@ -59,6 +62,10 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
       </div>
 
       <div className="flex flex-col gap-3 border-b border-neutral-200 pb-4">
+        <ChannelAvatarUploader
+          avatarUrl={globalChannelAvatarUrl}
+          onChange={setGlobalChannelAvatar}
+        />
         <Input
           label="Nome do canal (padrão para todas)"
           placeholder="Nome do canal"

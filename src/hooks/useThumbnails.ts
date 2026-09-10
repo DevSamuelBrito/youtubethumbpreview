@@ -5,6 +5,14 @@ import { generateId } from "@/lib/utils";
 export function useThumbnails() {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [globalChannelName, setGlobalChannelName] = useState("");
+  const [globalChannelAvatarUrl, setGlobalChannelAvatarUrl] = useState("");
+
+  const setGlobalChannelAvatar = useCallback((file: File) => {
+    setGlobalChannelAvatarUrl((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return URL.createObjectURL(file);
+    });
+  }, []);
 
   const addThumbnail = useCallback((file: File) => {
     const imageUrl = URL.createObjectURL(file);
@@ -46,5 +54,7 @@ export function useThumbnails() {
     updateChannelName,
     globalChannelName,
     setGlobalChannelName,
+    globalChannelAvatarUrl,
+    setGlobalChannelAvatar,
   };
 }
