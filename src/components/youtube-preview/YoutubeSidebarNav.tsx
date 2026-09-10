@@ -27,7 +27,7 @@ const mainItems: NavItemDef[] = [
         <path
           fillRule="evenodd"
           clipRule="evenodd"
-          d="M10 18v-6l5 3zM20 6.4a2.5 2.5 0 0 0-1.77-1.77C16.6 4.2 12 4.2 12 4.2s-4.6 0-6.23.43A2.5 2.5 0 0 0 4 6.4 26 26 0 0 0 3.6 11a26 26 0 0 0 .4 4.6 2.5 2.5 0 0 0 1.77 1.77c1.63.43 6.23.43 6.23.43s4.6 0 6.23-.43A2.5 2.5 0 0 0 20 15.6a26 26 0 0 0 .4-4.6 26 26 0 0 0-.4-4.6z"
+          d="M6 5H18A3 3 0 0 1 21 8V16A3 3 0 0 1 18 19H6A3 3 0 0 1 3 16V8A3 3 0 0 1 6 5ZM10 8.5V15.5L16 12Z"
         />
       </svg>
     ),
@@ -89,7 +89,7 @@ interface YoutubeSidebarNavProps {
 export function YoutubeSidebarNav({ collapsed }: YoutubeSidebarNavProps) {
   return (
     <aside
-      className={`flex shrink-0 flex-col overflow-y-auto overflow-x-hidden border-r border-[var(--yt-border)] bg-[var(--yt-bg)] transition-[width] duration-200 ease-out ${
+      className={`flex h-full shrink-0 flex-col overflow-y-auto overflow-x-hidden border-r border-[var(--yt-border)] bg-[var(--yt-bg)] transition-[width] duration-200 ease-out ${
         collapsed ? "w-18 px-1" : "w-60 px-2"
       }`}
     >
