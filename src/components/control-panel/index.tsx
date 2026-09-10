@@ -2,8 +2,7 @@
 
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
-import { Input } from "@/components/ui/Input";
-import { ChannelAvatarUploader } from "./ChannelAvatarUploader";
+import { ChannelSettingsPanel } from "./ChannelSettingsPanel";
 import { ThumbnailUploader } from "./ThumbnailUploader";
 import { ThumbnailListItem } from "./ThumbnailListItem";
 import { DeviceSelect } from "./DeviceSelect";
@@ -43,6 +42,12 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
     setGlobalChannelName,
     globalChannelAvatarUrl,
     setGlobalChannelAvatar,
+    channelBannerUrl,
+    setChannelBanner,
+    channelSubscriberCount,
+    setChannelSubscriberCount,
+    channelDescription,
+    setChannelDescription,
   } = useThumbnailsContext();
 
   const { theme, setTheme, device, setDevice, pageView, setPageView } =
@@ -65,20 +70,23 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
       </div>
 
       <div className="flex flex-col gap-3 border-b border-neutral-200 pb-4">
-        <ChannelAvatarUploader
-          avatarUrl={globalChannelAvatarUrl}
-          onChange={setGlobalChannelAvatar}
-        />
-        <Input
-          label="Nome do canal (padrão para todas)"
-          placeholder="Nome do canal"
-          value={globalChannelName}
-          onChange={(event) => setGlobalChannelName(event.target.value)}
-        />
         <DeviceSelect device={device} onChange={setDevice} />
         <PageViewSelect pageView={pageView} onChange={setPageView} />
         <ThemeToggle theme={theme} onChange={setTheme} />
       </div>
+
+      <ChannelSettingsPanel
+        bannerUrl={channelBannerUrl}
+        onBannerChange={setChannelBanner}
+        avatarUrl={globalChannelAvatarUrl}
+        onAvatarChange={setGlobalChannelAvatar}
+        channelName={globalChannelName}
+        onChannelNameChange={setGlobalChannelName}
+        subscriberCount={channelSubscriberCount}
+        onSubscriberCountChange={setChannelSubscriberCount}
+        description={channelDescription}
+        onDescriptionChange={setChannelDescription}
+      />
 
       <h2 className="text-sm font-semibold text-neutral-900">Thumbnails</h2>
       <ThumbnailUploader onAdd={addThumbnail} />

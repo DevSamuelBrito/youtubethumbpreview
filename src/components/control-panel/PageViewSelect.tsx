@@ -35,6 +35,23 @@ function SearchIcon() {
   );
 }
 
+function ChannelIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" />
+    </svg>
+  );
+}
+
 interface PageViewSelectProps {
   pageView: PageView;
   onChange: (pageView: PageView) => void;
@@ -50,6 +67,7 @@ export function PageViewSelect({ pageView, onChange }: PageViewSelectProps) {
         options={[
           { value: "home", label: "Início", icon: <HomeIcon /> },
           { value: "search", label: "Busca", icon: <SearchIcon /> },
+          { value: "channel", label: "Canal", icon: <ChannelIcon /> },
         ]}
       />
     </div>

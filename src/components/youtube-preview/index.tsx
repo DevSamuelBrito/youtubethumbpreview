@@ -7,6 +7,7 @@ import { FilterChips } from "./FilterChips";
 import { VideoGrid } from "./VideoGrid";
 import { SearchFiltersBar } from "./SearchFiltersBar";
 import { SearchResultsList } from "./SearchResultsList";
+import { ChannelPage } from "./ChannelPage";
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 
@@ -41,17 +42,19 @@ export function YoutubePreview() {
         <div className="relative flex flex-1 overflow-hidden">
           {!isMobile && <YoutubeSidebarNav collapsed={isSidebarCollapsed} />}
           <main className="flex-1 overflow-y-auto">
-            {pageView === "home" ? (
+            {pageView === "home" && (
               <>
                 <FilterChips />
                 <VideoGrid />
               </>
-            ) : (
+            )}
+            {pageView === "search" && (
               <>
                 <SearchFiltersBar />
                 <SearchResultsList isMobile={isMobile} />
               </>
             )}
+            {pageView === "channel" && <ChannelPage isMobile={isMobile} />}
           </main>
 
           {isMobile && (

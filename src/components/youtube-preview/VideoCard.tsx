@@ -53,7 +53,10 @@ export function VideoCard({
           ) : null}
         </div>
         <div className="flex min-w-0 flex-col">
-          <h3 className="line-clamp-2 text-sm leading-5 font-medium text-[var(--yt-text-primary)]">
+          <h3
+            className="overflow-hidden text-sm leading-5 font-medium text-[var(--yt-text-primary)]"
+            style={{ maxHeight: "2.5rem" }}
+          >
             {title}
           </h3>
           <p className="mt-1 truncate text-xs leading-[18px] text-[var(--yt-text-secondary)]">
