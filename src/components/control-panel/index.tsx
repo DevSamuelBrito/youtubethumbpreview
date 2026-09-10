@@ -1,6 +1,6 @@
 "use client";
 
-import { useThumbnails } from "@/hooks/useThumbnails";
+import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 import { ThumbnailUploader } from "./ThumbnailUploader";
 import { ThumbnailListItem } from "./ThumbnailListItem";
 
@@ -11,7 +11,7 @@ export function ControlPanel() {
     removeThumbnail,
     updateVideoTitle,
     updateChannelName,
-  } = useThumbnails();
+  } = useThumbnailsContext();
 
   return (
     <aside className="flex w-80 shrink-0 flex-col gap-4 overflow-y-auto border-r border-neutral-200 bg-white p-4">
