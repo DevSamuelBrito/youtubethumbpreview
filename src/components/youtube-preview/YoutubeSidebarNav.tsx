@@ -68,7 +68,7 @@ function NavSection({ items }: { items: NavItemDef[] }) {
 
 export function YoutubeSidebarNav() {
   return (
-    <aside className="hidden w-60 shrink-0 flex-col overflow-y-auto border-r border-[var(--yt-border)] bg-[var(--yt-bg)] px-2 md:flex">
+    <aside className="flex w-60 shrink-0 flex-col overflow-y-auto border-r border-[var(--yt-border)] bg-[var(--yt-bg)] px-2">
       <NavSection items={mainItems} />
       <div className="mx-3 my-1 border-t border-[var(--yt-border)]" />
       <NavSection items={libraryItems} />
