@@ -27,6 +27,44 @@ function PanelToggleIcon() {
   );
 }
 
+function DiceIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <circle cx="8" cy="8" r="1" fill="currentColor" stroke="none" />
+      <circle cx="16" cy="8" r="1" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
+      <circle cx="8" cy="16" r="1" fill="currentColor" stroke="none" />
+      <circle cx="16" cy="16" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function UndoIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 10h9a5 5 0 0 1 0 10h-2" />
+      <path d="M7 5 3 10l4 5" />
+    </svg>
+  );
+}
+
 interface ControlPanelProps {
   onHide: () => void;
 }
@@ -39,6 +77,9 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
     updateVideoTitle,
     updateChannelName,
     updateDescription,
+    shuffleSeed,
+    shuffleThumbnails,
+    resetShuffle,
     globalChannelName,
     setGlobalChannelName,
     globalChannelAvatarUrl,
@@ -100,9 +141,33 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
         onDescriptionChange={setChannelDescription}
       />
 
-      <h2 className="text-sm font-semibold text-neutral-900 dark:text-slate-100">
-        Thumbnails
-      </h2>
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="text-sm font-semibold text-neutral-900 dark:text-slate-100">
+          Thumbnails
+        </h2>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            aria-label="Remover embaralhamento"
+            title="Voltar à ordem original"
+            onClick={resetShuffle}
+            disabled={shuffleSeed === 0}
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent dark:text-slate-400 dark:hover:bg-slate-600 dark:hover:text-slate-100"
+          >
+            <UndoIcon />
+          </button>
+          <button
+            type="button"
+            aria-label="Embaralhar ordem das thumbnails"
+            title="Embaralhar ordem"
+            onClick={shuffleThumbnails}
+            disabled={thumbnails.length === 0}
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent dark:text-slate-400 dark:hover:bg-slate-600 dark:hover:text-slate-100"
+          >
+            <DiceIcon />
+          </button>
+        </div>
+      </div>
       <ThumbnailUploader onAdd={addThumbnail} />
 
       <ul className="flex flex-col gap-3">

@@ -3,6 +3,7 @@
 import { VideoCard, type VideoCardProps } from "./VideoCard";
 import { mockVideos } from "./mockVideos";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
+import { useShuffledPositions } from "@/hooks/useShuffledPositions";
 
 const FILLER_COUNT = 8;
 
@@ -11,15 +12,17 @@ interface ChannelVideoGridProps {
 }
 
 export function ChannelVideoGrid({ featured = false }: ChannelVideoGridProps) {
-  const { thumbnails, globalChannelName, globalChannelAvatarUrl } =
+  const { thumbnails, globalChannelName, globalChannelAvatarUrl, shuffleSeed } =
     useThumbnailsContext();
 
   const displayName = globalChannelName || "Nome do canal";
   const slotCount = Math.max(thumbnails.length, FILLER_COUNT);
+  const positions = useShuffledPositions(slotCount, slotCount, shuffleSeed);
 
   const cards: (VideoCardProps & { key: string })[] = Array.from(
     { length: slotCount },
-    (_, index) => {
+    (_, renderIndex) => {
+      const index = positions[renderIndex];
       const thumbnail = thumbnails[index];
       const mock = mockVideos[index % mockVideos.length];
 

@@ -71,6 +71,16 @@ export function useThumbnails() {
     );
   }, []);
 
+  const [shuffleSeed, setShuffleSeed] = useState(0);
+
+  const shuffleThumbnails = useCallback(() => {
+    setShuffleSeed((seed) => seed + 1);
+  }, []);
+
+  const resetShuffle = useCallback(() => {
+    setShuffleSeed(0);
+  }, []);
+
   return {
     thumbnails,
     addThumbnail,
@@ -78,6 +88,9 @@ export function useThumbnails() {
     updateVideoTitle,
     updateChannelName,
     updateDescription,
+    shuffleSeed,
+    shuffleThumbnails,
+    resetShuffle,
     globalChannelName,
     setGlobalChannelName,
     globalChannelAvatarUrl,
