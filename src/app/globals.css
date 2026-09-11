@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @import "../styles/youtube-theme.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --app-bg: #f9f9f9;
+  --app-bg: #eef1f6;
   --app-foreground: #0f0f0f;
 }
 

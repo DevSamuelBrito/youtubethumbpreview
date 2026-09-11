@@ -60,7 +60,7 @@ interface PageViewSelectProps {
 export function PageViewSelect({ pageView, onChange }: PageViewSelectProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-xs font-medium text-neutral-600">Página</span>
+      <span className="text-xs font-medium text-neutral-600 dark:text-slate-400">Página</span>
       <SegmentedToggle
         value={pageView}
         onChange={onChange}

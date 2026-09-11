@@ -34,7 +34,7 @@ interface ThemeToggleProps {
 export function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-xs font-medium text-neutral-600">Tema</span>
+      <span className="text-xs font-medium text-neutral-600 dark:text-slate-400">Tema</span>
       <SegmentedToggle
         value={theme}
         onChange={onChange}

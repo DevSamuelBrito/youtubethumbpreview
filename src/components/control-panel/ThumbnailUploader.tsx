@@ -25,7 +25,7 @@ export function ThumbnailUploader({ onAdd }: ThumbnailUploaderProps) {
       />
       <Button
         variant="ghost"
-        className="w-full justify-center border border-dashed border-neutral-300"
+        className="w-full justify-center border border-dashed border-neutral-300 dark:border-slate-500"
         onClick={() => inputRef.current?.click()}
       >
         + Adicionar thumbnail

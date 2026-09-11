@@ -8,6 +8,7 @@ import { ThumbnailListItem } from "./ThumbnailListItem";
 import { DeviceSelect } from "./DeviceSelect";
 import { PageViewSelect } from "./PageViewSelect";
 import { ThemeToggle } from "./ThemeToggle";
+import { AppThemeToggle } from "./AppThemeToggle";
 
 function PanelToggleIcon() {
   return (
@@ -50,26 +51,37 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
     setChannelDescription,
   } = useThumbnailsContext();
 
-  const { theme, setTheme, device, setDevice, pageView, setPageView } =
-    usePreviewSettingsContext();
+  const {
+    theme,
+    setTheme,
+    device,
+    setDevice,
+    pageView,
+    setPageView,
+    appTheme,
+    setAppTheme,
+  } = usePreviewSettingsContext();
 
   return (
-    <aside className="flex h-full w-full flex-col gap-4 overflow-y-auto border-b border-neutral-200 bg-white p-4 lg:border-r lg:border-b-0">
+    <aside className="flex h-full w-full flex-col gap-4 overflow-y-auto border-b border-neutral-200 bg-white p-4 lg:border-r lg:border-b-0 dark:border-slate-600 dark:bg-slate-700">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-base font-semibold tracking-tight text-neutral-900">
+        <span className="text-base font-semibold tracking-tight text-neutral-900 dark:text-slate-100">
           ThumbPreview
         </span>
-        <button
-          type="button"
-          aria-label="Ocultar painel"
-          onClick={onHide}
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900"
-        >
-          <PanelToggleIcon />
-        </button>
+        <div className="flex items-center gap-1">
+          <AppThemeToggle appTheme={appTheme} onChange={setAppTheme} />
+          <button
+            type="button"
+            aria-label="Ocultar painel"
+            onClick={onHide}
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 dark:text-slate-400 dark:hover:bg-slate-600 dark:hover:text-slate-100"
+          >
+            <PanelToggleIcon />
+          </button>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-3 border-b border-neutral-200 pb-4">
+      <div className="flex flex-col gap-3 border-b border-neutral-200 pb-4 dark:border-slate-600">
         <DeviceSelect device={device} onChange={setDevice} />
         <PageViewSelect pageView={pageView} onChange={setPageView} />
         <ThemeToggle theme={theme} onChange={setTheme} />
@@ -88,7 +100,9 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
         onDescriptionChange={setChannelDescription}
       />
 
-      <h2 className="text-sm font-semibold text-neutral-900">Thumbnails</h2>
+      <h2 className="text-sm font-semibold text-neutral-900 dark:text-slate-100">
+        Thumbnails
+      </h2>
       <ThumbnailUploader onAdd={addThumbnail} />
 
       <ul className="flex flex-col gap-3">
@@ -106,7 +120,7 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
         ))}
       </ul>
       {thumbnails.length === 0 && (
-        <p className="text-xs text-neutral-400">
+        <p className="text-xs text-neutral-400 dark:text-slate-500">
           Nenhuma thumbnail adicionada ainda.
         </p>
       )}

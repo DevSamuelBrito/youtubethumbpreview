@@ -19,7 +19,7 @@ export function ChannelBannerUploader({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-xs font-medium text-neutral-600">
+      <span className="text-xs font-medium text-neutral-600 dark:text-slate-400">
         Capa do canal
       </span>
       <input
@@ -34,7 +34,7 @@ export function ChannelBannerUploader({
         aria-label="Alterar capa do canal"
         onClick={() => inputRef.current?.click()}
         style={{ aspectRatio: "6 / 1" }}
-        className="relative flex w-full items-center justify-center overflow-hidden rounded-md bg-neutral-200 shadow-[inset_0_1px_3px_rgba(0,0,0,0.25)]"
+        className="relative flex w-full items-center justify-center overflow-hidden rounded-md bg-neutral-200 shadow-[inset_0_1px_3px_rgba(0,0,0,0.25)] dark:bg-slate-600"
       >
         {bannerUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- imagem vem de blob: URL local, incompatível com next/image
@@ -44,7 +44,7 @@ export function ChannelBannerUploader({
             className="h-full w-full object-cover"
           />
         ) : (
-          <span className="text-xs font-medium text-neutral-500">
+          <span className="text-xs font-medium text-neutral-500 dark:text-slate-400">
             Enviar imagem
           </span>
         )}

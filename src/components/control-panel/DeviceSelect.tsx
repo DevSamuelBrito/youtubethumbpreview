@@ -43,7 +43,7 @@ interface DeviceSelectProps {
 export function DeviceSelect({ device, onChange }: DeviceSelectProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-xs font-medium text-neutral-600">
+      <span className="text-xs font-medium text-neutral-600 dark:text-slate-400">
         Visualização
       </span>
       <SegmentedToggle

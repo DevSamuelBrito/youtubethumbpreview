@@ -33,8 +33,8 @@ export function ThumbnailListItem({
   onRemove,
 }: ThumbnailListItemProps) {
   return (
-    <li className="flex flex-col gap-2 rounded-lg border border-neutral-200 p-3">
-      <div className="relative w-full overflow-hidden rounded-md bg-neutral-100">
+    <li className="flex flex-col gap-2 rounded-lg border border-neutral-200 p-3 dark:border-slate-600">
+      <div className="relative w-full overflow-hidden rounded-md bg-neutral-100 dark:bg-slate-600">
         {/* eslint-disable-next-line @next/next/no-img-element -- imagem vem de blob: URL local, incompatível com next/image */}
         <img
           src={thumbnail.imageUrl}
@@ -44,7 +44,7 @@ export function ThumbnailListItem({
       </div>
 
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-neutral-400">
+        <span className="text-xs font-medium text-neutral-400 dark:text-slate-500">
           {index === 0 ? "Vídeo em destaque" : `Vídeo ${index + 1}`}
         </span>
         <Button
@@ -86,7 +86,7 @@ export function ThumbnailListItem({
           onClick={() =>
             onUpdateDescription(thumbnail.id, generateLoremText())
           }
-          className="absolute top-1/2 right-1.5 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded text-neutral-500 hover:bg-neutral-300 hover:text-neutral-900"
+          className="absolute top-1/2 right-1.5 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded text-neutral-500 hover:bg-neutral-300 hover:text-neutral-900 dark:text-slate-400 dark:hover:bg-slate-500 dark:hover:text-slate-100"
         >
           <SparkleIcon />
         </button>

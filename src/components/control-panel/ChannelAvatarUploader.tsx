@@ -30,7 +30,7 @@ export function ChannelAvatarUploader({
         type="button"
         aria-label="Alterar ícone do canal"
         onClick={() => inputRef.current?.click()}
-        className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-neutral-200 shadow-[inset_0_1px_3px_rgba(0,0,0,0.25)]"
+        className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-neutral-200 shadow-[inset_0_1px_3px_rgba(0,0,0,0.25)] dark:bg-slate-600"
       >
         {avatarUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- imagem vem de blob: URL local, incompatível com next/image
@@ -42,7 +42,7 @@ export function ChannelAvatarUploader({
         ) : (
           <svg
             viewBox="0 0 24 24"
-            className="h-6 w-6 text-neutral-400"
+            className="h-6 w-6 text-neutral-400 dark:text-slate-500"
             fill="currentColor"
           >
             <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z" />
@@ -50,13 +50,13 @@ export function ChannelAvatarUploader({
         )}
       </button>
       <div className="flex flex-col gap-0.5">
-        <span className="text-xs font-medium text-neutral-600">
+        <span className="text-xs font-medium text-neutral-600 dark:text-slate-400">
           Ícone do canal
         </span>
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
-          className="text-left text-xs font-medium text-neutral-500 underline hover:text-neutral-900"
+          className="text-left text-xs font-medium text-neutral-500 underline hover:text-neutral-900 dark:text-slate-400 dark:hover:text-slate-100"
         >
           {avatarUrl ? "Alterar imagem" : "Enviar imagem"}
         </button>

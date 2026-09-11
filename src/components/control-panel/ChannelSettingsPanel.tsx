@@ -61,11 +61,11 @@ export function ChannelSettingsPanel({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex flex-col gap-3 border-b border-neutral-200 pb-4">
+    <div className="flex flex-col gap-3 border-b border-neutral-200 pb-4 dark:border-slate-600">
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center gap-1.5 text-sm font-semibold text-neutral-900"
+        className="flex items-center gap-1.5 text-sm font-semibold text-neutral-900 dark:text-slate-100"
       >
         <ChevronIcon open={isOpen} />
         Opções do canal
@@ -98,7 +98,7 @@ export function ChannelSettingsPanel({
             }
           />
           <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-medium text-neutral-600">
+            <span className="text-xs font-medium text-neutral-600 dark:text-slate-400">
               Descrição do canal
             </span>
             <div className="relative">
@@ -114,7 +114,7 @@ export function ChannelSettingsPanel({
                 type="button"
                 aria-label="Preencher descrição com texto de exemplo"
                 onClick={() => onDescriptionChange(generateLoremText())}
-                className="absolute top-1/2 right-1.5 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded text-neutral-500 hover:bg-neutral-300 hover:text-neutral-900"
+                className="absolute top-1/2 right-1.5 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded text-neutral-500 hover:bg-neutral-300 hover:text-neutral-900 dark:text-slate-400 dark:hover:bg-slate-500 dark:hover:text-slate-100"
               >
                 <SparkleIcon />
               </button>
