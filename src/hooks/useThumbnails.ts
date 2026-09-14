@@ -1,5 +1,10 @@
+// react
 import { useCallback, useState } from "react";
+
+// types
 import type { CardOverride, Thumbnail } from "@/types/thumbnail";
+
+// lib
 import { generateId } from "@/lib/utils";
 
 export function useThumbnails() {
@@ -139,6 +144,7 @@ export function useThumbnails() {
   }, []);
 
   return {
+    // thumbnails (CRUD)
     thumbnails,
     addThumbnail,
     removeThumbnail,
@@ -146,15 +152,21 @@ export function useThumbnails() {
     updateChannelName,
     updateThumbnailImage,
     updateDescription,
+
+    // shuffle
     shuffleSeed,
     shuffleThumbnails,
     resetShuffle,
+
+    // edição por card (modo de edição da prévia)
     isEditMode,
     toggleEditMode,
     cardOverrides,
     setCardOverrideText,
     setCardOverrideImage,
     clearCardOverrides,
+
+    // identidade do canal
     globalChannelName,
     setGlobalChannelName,
     globalChannelAvatarUrl,

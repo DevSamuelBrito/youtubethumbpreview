@@ -1,11 +1,20 @@
 "use client";
 
+// react
 import { useState } from "react";
+
+// components
 import { ChannelHeader } from "./ChannelHeader";
 import { ChannelTabs, type ChannelTab } from "./ChannelTabs";
 import { ChannelVideoGrid } from "./ChannelVideoGrid";
+
+// context
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
+
+// hooks
 import { useChannelVideos } from "@/hooks/useChannelVideos";
+
+// lib
 import { MAX_CHANNEL_FILLER_COUNT } from "@/lib/constants";
 
 interface ChannelPageProps {

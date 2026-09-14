@@ -1,8 +1,15 @@
+// react
 import { useRef, type ChangeEvent } from "react";
+
+// types
 import type { Thumbnail } from "@/types/thumbnail";
+
+// components
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { PencilIcon } from "@/components/youtube-preview/icons";
+
+// lib
 import { generateLoremText } from "@/lib/utils";
 
 function SparkleIcon() {

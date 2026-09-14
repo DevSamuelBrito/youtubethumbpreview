@@ -1,9 +1,16 @@
 "use client";
 
+// components
 import { VideoCard, type VideoCardProps } from "./VideoCard";
+
+// context
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
+
+// hooks
 import { useShuffledPositions } from "@/hooks/useShuffledPositions";
 import { useChannelVideos } from "@/hooks/useChannelVideos";
+
+// lib
 import { MAX_CHANNEL_FILLER_COUNT } from "@/lib/constants";
 
 interface ChannelVideoGridProps {
@@ -12,11 +19,18 @@ interface ChannelVideoGridProps {
 
 export function ChannelVideoGrid({ featured = false }: ChannelVideoGridProps) {
   const {
+    // thumbnails
     thumbnails,
+
+    // identidade do canal
     globalChannelName,
     globalChannelAvatarUrl,
     channelHandle,
+
+    // shuffle
     shuffleSeed,
+
+    // edição por card
     isEditMode,
     cardOverrides,
     setCardOverrideText,
@@ -28,9 +42,6 @@ export function ChannelVideoGrid({ featured = false }: ChannelVideoGridProps) {
 
   const displayName = globalChannelName || "Nome do canal";
   const fillerCount = Math.min(mockVideos.length, MAX_CHANNEL_FILLER_COUNT);
-  // Os vídeos de preenchimento se SOMAM aos seus uploads (não substituem):
-  // os primeiros `thumbnails.length` slots são suas thumbs, os próximos
-  // `fillerCount` slots são vídeos de preenchimento (reais ou mockados).
   const slotCount = thumbnails.length + fillerCount;
   const positions = useShuffledPositions(slotCount, slotCount, shuffleSeed);
 

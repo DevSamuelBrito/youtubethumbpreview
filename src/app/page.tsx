@@ -1,11 +1,16 @@
 "use client";
 
+// react
 import { useState } from "react";
+
+// context
 import { ThumbnailsProvider } from "@/context/ThumbnailsContext";
 import {
   PreviewSettingsProvider,
   usePreviewSettingsContext,
 } from "@/context/PreviewSettingsContext";
+
+// components
 import { ControlPanel } from "@/components/control-panel";
 import { YoutubePreview } from "@/components/youtube-preview";
 

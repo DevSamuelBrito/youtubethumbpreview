@@ -1,6 +1,9 @@
 "use client";
 
+// react
 import { createContext, useContext, type ReactNode } from "react";
+
+// hooks
 import { useTheme } from "@/hooks/useTheme";
 import { useDevicePreview } from "@/hooks/useDevicePreview";
 import { usePageView } from "@/hooks/usePageView";

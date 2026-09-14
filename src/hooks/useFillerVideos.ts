@@ -1,6 +1,9 @@
 "use client";
 
+// react
 import { useEffect, useState } from "react";
+
+// youtube-preview
 import { mockVideos, type MockVideo } from "@/components/youtube-preview/mockVideos";
 import { fetchRealFillerVideos } from "@/components/youtube-preview/youtubeApi";
 

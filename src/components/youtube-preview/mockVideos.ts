@@ -1,5 +1,10 @@
+// faker
 import { fakerPT_BR as faker } from "@faker-js/faker";
+
+// components
 import type { VideoCardProps } from "./VideoCard";
+
+// lib
 import { formatViews, formatDuration, formatRelativeTime } from "@/lib/videoFormat";
 
 export interface MockVideo extends VideoCardProps {

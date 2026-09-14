@@ -1,20 +1,34 @@
 "use client";
 
+// react
 import { useState } from "react";
+
+// components
 import { VideoCard } from "./VideoCard";
 import { ShowMoreButton } from "./ShowMoreButton";
+
+// context
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
+
+// hooks
 import { useShuffledPositions } from "@/hooks/useShuffledPositions";
 import { useFillerVideos } from "@/hooks/useFillerVideos";
+
+// lib
 import { DEFAULT_VISIBLE_VIDEO_COUNT } from "@/lib/constants";
 
 export function VideoGrid() {
   const mockVideos = useFillerVideos();
   const {
+    // thumbnails
     thumbnails,
     globalChannelName,
     globalChannelAvatarUrl,
+
+    // shuffle
     shuffleSeed,
+
+    // edição por card
     isEditMode,
     cardOverrides,
     setCardOverrideText,
@@ -23,6 +37,7 @@ export function VideoGrid() {
     updateChannelName,
     updateThumbnailImage,
   } = useThumbnailsContext();
+  
   const slotCount = Math.max(thumbnails.length, mockVideos.length);
   const guaranteedVisibleCount = Math.min(
     Math.max(thumbnails.length, DEFAULT_VISIBLE_VIDEO_COUNT),

@@ -1,9 +1,14 @@
 "use client";
 
+// react
 import { useState, type ChangeEvent } from "react";
+
+// components
 import { Input } from "@/components/ui/Input";
 import { ChannelAvatarUploader } from "./ChannelAvatarUploader";
 import { ChannelBannerUploader } from "./ChannelBannerUploader";
+
+// lib
 import { generateLoremText } from "@/lib/utils";
 import { fetchChannelByHandle } from "@/components/youtube-preview/youtubeApi";
 

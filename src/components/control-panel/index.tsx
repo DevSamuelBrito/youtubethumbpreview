@@ -1,7 +1,10 @@
 "use client";
 
+// context
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
+
+// components
 import { ChannelSettingsPanel } from "./ChannelSettingsPanel";
 import { ThumbnailUploader } from "./ThumbnailUploader";
 import { ThumbnailListItem } from "./ThumbnailListItem";
@@ -9,6 +12,8 @@ import { DeviceSelect } from "./DeviceSelect";
 import { PageViewSelect } from "./PageViewSelect";
 import { ThemeToggle } from "./ThemeToggle";
 import { AppThemeToggle } from "./AppThemeToggle";
+
+// icons
 import { PencilIcon } from "@/components/youtube-preview/icons";
 
 function PanelToggleIcon() {
@@ -72,6 +77,7 @@ interface ControlPanelProps {
 
 export function ControlPanel({ onHide }: ControlPanelProps) {
   const {
+    // thumbnails
     thumbnails,
     addThumbnail,
     removeThumbnail,
@@ -79,11 +85,17 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
     updateChannelName,
     updateThumbnailImage,
     updateDescription,
+
+    // shuffle
     shuffleSeed,
     shuffleThumbnails,
     resetShuffle,
+
+    // edição por card
     isEditMode,
     toggleEditMode,
+
+    // identidade do canal
     globalChannelName,
     setGlobalChannelName,
     globalChannelAvatarUrl,
@@ -100,12 +112,15 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
   } = useThumbnailsContext();
 
   const {
+    // tema/dispositivo/página da prévia
     theme,
     setTheme,
     device,
     setDevice,
     pageView,
     setPageView,
+
+    // tema do app (independente do tema da prévia)
     appTheme,
     setAppTheme,
   } = usePreviewSettingsContext();

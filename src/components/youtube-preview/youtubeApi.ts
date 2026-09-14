@@ -89,9 +89,7 @@ function writeCache(videos: MockVideo[]): void {
       CACHE_KEY,
       JSON.stringify({ fetchedAt: Date.now(), videos }),
     );
-  } catch {
-    // localStorage indisponível (modo privado, cota, etc.) — segue sem cache
-  }
+  } catch {}
 }
 
 export async function fetchRealFillerVideos(): Promise<MockVideo[] | null> {
@@ -180,9 +178,7 @@ function writeChannelCache(handle: string, data: ChannelApiData): void {
       CHANNEL_CACHE_PREFIX + handle,
       JSON.stringify({ fetchedAt: Date.now(), data }),
     );
-  } catch {
-    // localStorage indisponível — segue sem cache
-  }
+  } catch {}
 }
 
 export async function fetchChannelByHandle(
@@ -238,8 +234,7 @@ export async function fetchChannelByHandle(
       return data;
     }
 
-    // A playlist de uploads nem sempre vem ordenada do mais novo pro mais
-    // antigo — ordenamos aqui pra garantir que pegamos os últimos vídeos.
+    // a playlist de uploads nem sempre vem ordenada do mais novo pro mais antigo
     const sortedItems = [...allItems].sort(
       (a, b) =>
         new Date(b.snippet.publishedAt).getTime() -

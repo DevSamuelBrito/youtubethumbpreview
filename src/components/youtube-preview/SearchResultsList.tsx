@@ -1,11 +1,20 @@
 "use client";
 
+// react
 import { useState } from "react";
+
+// components
 import { SearchResultItem } from "./SearchResultItem";
 import { ShowMoreButton } from "./ShowMoreButton";
+
+// context
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
+
+// hooks
 import { useShuffledPositions } from "@/hooks/useShuffledPositions";
 import { useFillerVideos } from "@/hooks/useFillerVideos";
+
+// lib
 import { DEFAULT_VISIBLE_VIDEO_COUNT } from "@/lib/constants";
 
 interface SearchResultsListProps {
@@ -15,10 +24,15 @@ interface SearchResultsListProps {
 export function SearchResultsList({ isMobile }: SearchResultsListProps) {
   const mockVideos = useFillerVideos();
   const {
+    // thumbnails
     thumbnails,
     globalChannelName,
     globalChannelAvatarUrl,
+
+    // shuffle
     shuffleSeed,
+
+    // edição por card
     isEditMode,
     cardOverrides,
     setCardOverrideText,
@@ -27,6 +41,7 @@ export function SearchResultsList({ isMobile }: SearchResultsListProps) {
     updateChannelName,
     updateThumbnailImage,
   } = useThumbnailsContext();
+  
   const slotCount = Math.max(thumbnails.length, mockVideos.length);
   const guaranteedVisibleCount = Math.min(
     Math.max(thumbnails.length, DEFAULT_VISIBLE_VIDEO_COUNT),

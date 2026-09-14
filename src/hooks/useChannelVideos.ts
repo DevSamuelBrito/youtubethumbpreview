@@ -1,8 +1,13 @@
 "use client";
 
+// react
 import { useEffect, useState } from "react";
+
+// youtube-preview
 import type { MockVideo } from "@/components/youtube-preview/mockVideos";
 import { fetchChannelByHandle } from "@/components/youtube-preview/youtubeApi";
+
+// hooks
 import { useFillerVideos } from "./useFillerVideos";
 
 const DEBOUNCE_MS = 800;

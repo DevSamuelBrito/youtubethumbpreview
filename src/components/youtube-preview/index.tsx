@@ -1,6 +1,9 @@
 "use client";
 
+// react
 import { useState } from "react";
+
+// components
 import { YoutubeHeader } from "./YoutubeHeader";
 import { YoutubeSidebarNav } from "./YoutubeSidebarNav";
 import { FilterChips } from "./FilterChips";
@@ -8,6 +11,8 @@ import { VideoGrid } from "./VideoGrid";
 import { SearchFiltersBar } from "./SearchFiltersBar";
 import { SearchResultsList } from "./SearchResultsList";
 import { ChannelPage } from "./ChannelPage";
+
+// context
 import { usePreviewSettingsContext } from "@/context/PreviewSettingsContext";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 
