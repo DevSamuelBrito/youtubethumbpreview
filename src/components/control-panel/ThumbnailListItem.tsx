@@ -1,7 +1,8 @@
-import type { ChangeEvent } from "react";
+import { useRef, type ChangeEvent } from "react";
 import type { Thumbnail } from "@/types/thumbnail";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { PencilIcon } from "@/components/youtube-preview/icons";
 import { generateLoremText } from "@/lib/utils";
 
 function SparkleIcon() {
@@ -20,6 +21,7 @@ interface ThumbnailListItemProps {
   onUpdateVideoTitle: (id: string, value: string) => void;
   onUpdateChannelName: (id: string, value: string) => void;
   onUpdateDescription: (id: string, value: string) => void;
+  onUpdateImage: (id: string, file: File) => void;
   onRemove: (id: string) => void;
 }
 
@@ -30,8 +32,17 @@ export function ThumbnailListItem({
   onUpdateVideoTitle,
   onUpdateChannelName,
   onUpdateDescription,
+  onUpdateImage,
   onRemove,
 }: ThumbnailListItemProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleImageChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (file) onUpdateImage(thumbnail.id, file);
+    event.target.value = "";
+  }
+
   return (
     <li className="flex flex-col gap-2 rounded-lg border border-neutral-200 p-3 dark:border-slate-600">
       <div className="relative w-full overflow-hidden rounded-md bg-neutral-100 dark:bg-slate-600">
@@ -40,6 +51,22 @@ export function ThumbnailListItem({
           src={thumbnail.imageUrl}
           alt=""
           className="aspect-video w-full object-cover"
+        />
+        <button
+          type="button"
+          aria-label="Trocar imagem da thumbnail"
+          title="Trocar imagem"
+          onClick={() => fileInputRef.current?.click()}
+          className="absolute inset-0 flex items-center justify-center bg-black/0 text-white opacity-0 transition-opacity hover:bg-black/40 hover:opacity-100"
+        >
+          <PencilIcon className="h-5 w-5" />
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleImageChange}
         />
       </div>
 

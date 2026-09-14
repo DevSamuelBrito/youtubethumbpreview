@@ -9,6 +9,7 @@ import { DeviceSelect } from "./DeviceSelect";
 import { PageViewSelect } from "./PageViewSelect";
 import { ThemeToggle } from "./ThemeToggle";
 import { AppThemeToggle } from "./AppThemeToggle";
+import { PencilIcon } from "@/components/youtube-preview/icons";
 
 function PanelToggleIcon() {
   return (
@@ -76,10 +77,13 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
     removeThumbnail,
     updateVideoTitle,
     updateChannelName,
+    updateThumbnailImage,
     updateDescription,
     shuffleSeed,
     shuffleThumbnails,
     resetShuffle,
+    isEditMode,
+    toggleEditMode,
     globalChannelName,
     setGlobalChannelName,
     globalChannelAvatarUrl,
@@ -148,6 +152,20 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
         <div className="flex items-center gap-1">
           <button
             type="button"
+            aria-label="Editar cards individualmente na prévia"
+            title="Modo de edição por card"
+            aria-pressed={isEditMode}
+            onClick={toggleEditMode}
+            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md ${
+              isEditMode
+                ? "bg-neutral-900 text-white hover:bg-neutral-700 dark:bg-slate-400 dark:text-slate-900 dark:hover:bg-slate-300"
+                : "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 dark:text-slate-400 dark:hover:bg-slate-600 dark:hover:text-slate-100"
+            }`}
+          >
+            <PencilIcon className="h-3.5 w-3.5" />
+          </button>
+          <button
+            type="button"
             aria-label="Remover embaralhamento"
             title="Voltar à ordem original"
             onClick={resetShuffle}
@@ -180,6 +198,7 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
             onUpdateVideoTitle={updateVideoTitle}
             onUpdateChannelName={updateChannelName}
             onUpdateDescription={updateDescription}
+            onUpdateImage={updateThumbnailImage}
             onRemove={removeThumbnail}
           />
         ))}

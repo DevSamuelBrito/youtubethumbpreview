@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import type { Thumbnail } from "@/types/thumbnail";
+import type { CardOverride, Thumbnail } from "@/types/thumbnail";
 import { generateId } from "@/lib/utils";
 
 export function useThumbnails() {
@@ -63,6 +63,17 @@ export function useThumbnails() {
     );
   }, []);
 
+  const updateThumbnailImage = useCallback((id: string, file: File) => {
+    const imageUrl = URL.createObjectURL(file);
+    setThumbnails((prev) =>
+      prev.map((thumbnail) => {
+        if (thumbnail.id !== id) return thumbnail;
+        URL.revokeObjectURL(thumbnail.imageUrl);
+        return { ...thumbnail, imageUrl };
+      }),
+    );
+  }, []);
+
   const updateDescription = useCallback((id: string, description: string) => {
     setThumbnails((prev) =>
       prev.map((thumbnail) =>
@@ -81,16 +92,61 @@ export function useThumbnails() {
     setShuffleSeed(0);
   }, []);
 
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const toggleEditMode = useCallback(() => {
+    setIsEditMode((prev) => !prev);
+  }, []);
+
+  const [cardOverrides, setCardOverrides] = useState<
+    Record<string, CardOverride>
+  >({});
+
+  const setCardOverrideText = useCallback(
+    (id: string, field: "title" | "channelName", value: string) => {
+      setCardOverrides((prev) => ({
+        ...prev,
+        [id]: { ...prev[id], [field]: value },
+      }));
+    },
+    [],
+  );
+
+  const setCardOverrideImage = useCallback((id: string, file: File) => {
+    const imageUrl = URL.createObjectURL(file);
+    setCardOverrides((prev) => {
+      const previousUrl = prev[id]?.thumbnailUrl;
+      if (previousUrl) URL.revokeObjectURL(previousUrl);
+      return { ...prev, [id]: { ...prev[id], thumbnailUrl: imageUrl } };
+    });
+  }, []);
+
+  const clearCardOverrides = useCallback(() => {
+    setCardOverrides((prev) => {
+      Object.values(prev).forEach((override) => {
+        if (override.thumbnailUrl) URL.revokeObjectURL(override.thumbnailUrl);
+      });
+      return {};
+    });
+  }, []);
+
   return {
     thumbnails,
     addThumbnail,
     removeThumbnail,
     updateVideoTitle,
     updateChannelName,
+    updateThumbnailImage,
     updateDescription,
     shuffleSeed,
     shuffleThumbnails,
     resetShuffle,
+    isEditMode,
+    toggleEditMode,
+    cardOverrides,
+    setCardOverrideText,
+    setCardOverrideImage,
+    clearCardOverrides,
     globalChannelName,
     setGlobalChannelName,
     globalChannelAvatarUrl,

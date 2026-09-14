@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { SearchResultItem } from "./SearchResultItem";
 import { ShowMoreButton } from "./ShowMoreButton";
-import { mockVideos } from "./mockVideos";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 import { useShuffledPositions } from "@/hooks/useShuffledPositions";
+import { useFillerVideos } from "@/hooks/useFillerVideos";
 import { DEFAULT_VISIBLE_VIDEO_COUNT } from "@/lib/constants";
 
 interface SearchResultsListProps {
@@ -13,8 +13,20 @@ interface SearchResultsListProps {
 }
 
 export function SearchResultsList({ isMobile }: SearchResultsListProps) {
-  const { thumbnails, globalChannelName, globalChannelAvatarUrl, shuffleSeed } =
-    useThumbnailsContext();
+  const mockVideos = useFillerVideos();
+  const {
+    thumbnails,
+    globalChannelName,
+    globalChannelAvatarUrl,
+    shuffleSeed,
+    isEditMode,
+    cardOverrides,
+    setCardOverrideText,
+    setCardOverrideImage,
+    updateVideoTitle,
+    updateChannelName,
+    updateThumbnailImage,
+  } = useThumbnailsContext();
   const slotCount = Math.max(thumbnails.length, mockVideos.length);
   const guaranteedVisibleCount = Math.min(
     Math.max(thumbnails.length, DEFAULT_VISIBLE_VIDEO_COUNT),
@@ -41,7 +53,23 @@ export function SearchResultsList({ isMobile }: SearchResultsListProps) {
     const mock = mockVideos[index % mockVideos.length];
 
     if (!thumbnail) {
-      return { key: `${mock.id}-${index}`, ...mock };
+      const override = cardOverrides[mock.id];
+      return {
+        key: `${mock.id}-${index}`,
+        title: override?.title ?? mock.title,
+        channelName: override?.channelName ?? mock.channelName,
+        channelAvatarUrl: mock.channelAvatarUrl,
+        views: mock.views,
+        uploadedAt: mock.uploadedAt,
+        duration: mock.duration,
+        description: mock.description,
+        thumbnailUrl: override?.thumbnailUrl ?? mock.thumbnailUrl,
+        onEditTitle: (value: string) =>
+          setCardOverrideText(mock.id, "title", value),
+        onEditChannelName: (value: string) =>
+          setCardOverrideText(mock.id, "channelName", value),
+        onEditThumbnail: (file: File) => setCardOverrideImage(mock.id, file),
+      };
     }
 
     return {
@@ -55,6 +83,11 @@ export function SearchResultsList({ isMobile }: SearchResultsListProps) {
       duration: mock.duration,
       description: thumbnail.description || mock.description,
       thumbnailUrl: thumbnail.imageUrl,
+      onEditTitle: (value: string) => updateVideoTitle(thumbnail.id, value),
+      onEditChannelName: (value: string) =>
+        updateChannelName(thumbnail.id, value),
+      onEditThumbnail: (file: File) =>
+        updateThumbnailImage(thumbnail.id, file),
     };
   });
 
@@ -62,7 +95,12 @@ export function SearchResultsList({ isMobile }: SearchResultsListProps) {
     <div className="max-w-4xl">
       <div className="flex flex-col divide-y divide-[var(--yt-border)] px-6">
         {results.map(({ key, ...result }) => (
-          <SearchResultItem key={key} isMobile={isMobile} {...result} />
+          <SearchResultItem
+            key={key}
+            isMobile={isMobile}
+            {...result}
+            editable={isEditMode}
+          />
         ))}
       </div>
       {!showAll && slotCount > guaranteedVisibleCount && (
