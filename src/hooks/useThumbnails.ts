@@ -14,9 +14,17 @@ export function useThumbnails() {
     });
   }, []);
 
+  const setGlobalChannelAvatarFromUrl = useCallback((url: string) => {
+    setGlobalChannelAvatarUrl((prev) => {
+      if (prev.startsWith("blob:")) URL.revokeObjectURL(prev);
+      return url;
+    });
+  }, []);
+
   const [channelBannerUrl, setChannelBannerUrl] = useState("");
   const [channelSubscriberCount, setChannelSubscriberCount] = useState("");
   const [channelDescription, setChannelDescription] = useState("");
+  const [channelHandle, setChannelHandle] = useState("");
 
   const setChannelBanner = useCallback((file: File) => {
     setChannelBannerUrl((prev) => {
@@ -151,11 +159,14 @@ export function useThumbnails() {
     setGlobalChannelName,
     globalChannelAvatarUrl,
     setGlobalChannelAvatar,
+    setGlobalChannelAvatarFromUrl,
     channelBannerUrl,
     setChannelBanner,
     channelSubscriberCount,
     setChannelSubscriberCount,
     channelDescription,
     setChannelDescription,
+    channelHandle,
+    setChannelHandle,
   };
 }

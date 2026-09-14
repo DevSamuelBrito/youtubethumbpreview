@@ -1,11 +1,19 @@
-export function formatViews(count: number): string {
+function formatCount(count: number, suffix: string): string {
   if (count >= 1_000_000) {
-    return `${(count / 1_000_000).toFixed(1).replace(".", ",")} mi visualizações`;
+    return `${(count / 1_000_000).toFixed(1).replace(".", ",")} mi ${suffix}`;
   }
   if (count >= 1_000) {
-    return `${Math.round(count / 1000)} mil visualizações`;
+    return `${Math.round(count / 1000)} mil ${suffix}`;
   }
-  return `${count} visualizações`;
+  return `${count} ${suffix}`;
+}
+
+export function formatViews(count: number): string {
+  return formatCount(count, "visualizações");
+}
+
+export function formatSubscribers(count: number): string {
+  return formatCount(count, "inscritos");
 }
 
 export function formatDuration(totalSeconds: number): string {

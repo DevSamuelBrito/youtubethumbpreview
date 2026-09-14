@@ -3,20 +3,19 @@
 import { VideoCard, type VideoCardProps } from "./VideoCard";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
 import { useShuffledPositions } from "@/hooks/useShuffledPositions";
-import { useFillerVideos } from "@/hooks/useFillerVideos";
-
-const FILLER_COUNT = 8;
+import { useChannelVideos } from "@/hooks/useChannelVideos";
+import { MAX_CHANNEL_FILLER_COUNT } from "@/lib/constants";
 
 interface ChannelVideoGridProps {
   featured?: boolean;
 }
 
 export function ChannelVideoGrid({ featured = false }: ChannelVideoGridProps) {
-  const mockVideos = useFillerVideos();
   const {
     thumbnails,
     globalChannelName,
     globalChannelAvatarUrl,
+    channelHandle,
     shuffleSeed,
     isEditMode,
     cardOverrides,
@@ -25,9 +24,14 @@ export function ChannelVideoGrid({ featured = false }: ChannelVideoGridProps) {
     updateVideoTitle,
     updateThumbnailImage,
   } = useThumbnailsContext();
+  const mockVideos = useChannelVideos(channelHandle);
 
   const displayName = globalChannelName || "Nome do canal";
-  const slotCount = Math.max(thumbnails.length, FILLER_COUNT);
+  const fillerCount = Math.min(mockVideos.length, MAX_CHANNEL_FILLER_COUNT);
+  // Os vídeos de preenchimento se SOMAM aos seus uploads (não substituem):
+  // os primeiros `thumbnails.length` slots são suas thumbs, os próximos
+  // `fillerCount` slots são vídeos de preenchimento (reais ou mockados).
+  const slotCount = thumbnails.length + fillerCount;
   const positions = useShuffledPositions(slotCount, slotCount, shuffleSeed);
 
   const cards: (VideoCardProps & { key: string })[] = Array.from(
@@ -35,9 +39,10 @@ export function ChannelVideoGrid({ featured = false }: ChannelVideoGridProps) {
     (_, renderIndex) => {
       const index = positions[renderIndex];
       const thumbnail = thumbnails[index];
-      const mock = mockVideos[index % mockVideos.length];
 
       if (!thumbnail) {
+        const fillerIndex = index - thumbnails.length;
+        const mock = mockVideos[fillerIndex % mockVideos.length];
         const override = cardOverrides[mock.id];
         return {
           key: `${mock.id}-${index}`,
@@ -55,14 +60,15 @@ export function ChannelVideoGrid({ featured = false }: ChannelVideoGridProps) {
         };
       }
 
+      const statsMock = mockVideos[index % mockVideos.length];
       return {
         key: thumbnail.id,
         title: thumbnail.videoTitle || "Título do vídeo",
         channelName: displayName,
         channelAvatarUrl: globalChannelAvatarUrl || undefined,
-        views: mock.views,
-        uploadedAt: mock.uploadedAt,
-        duration: mock.duration,
+        views: statsMock.views,
+        uploadedAt: statsMock.uploadedAt,
+        duration: statsMock.duration,
         thumbnailUrl: thumbnail.imageUrl,
         onEditTitle: (value: string) => updateVideoTitle(thumbnail.id, value),
         onEditThumbnail: (file: File) =>

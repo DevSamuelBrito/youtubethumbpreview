@@ -88,12 +88,15 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
     setGlobalChannelName,
     globalChannelAvatarUrl,
     setGlobalChannelAvatar,
+    setGlobalChannelAvatarFromUrl,
     channelBannerUrl,
     setChannelBanner,
     channelSubscriberCount,
     setChannelSubscriberCount,
     channelDescription,
     setChannelDescription,
+    channelHandle,
+    setChannelHandle,
   } = useThumbnailsContext();
 
   const {
@@ -137,12 +140,15 @@ export function ControlPanel({ onHide }: ControlPanelProps) {
         onBannerChange={setChannelBanner}
         avatarUrl={globalChannelAvatarUrl}
         onAvatarChange={setGlobalChannelAvatar}
+        onAvatarUrlChange={setGlobalChannelAvatarFromUrl}
         channelName={globalChannelName}
         onChannelNameChange={setGlobalChannelName}
         subscriberCount={channelSubscriberCount}
         onSubscriberCountChange={setChannelSubscriberCount}
         description={channelDescription}
         onDescriptionChange={setChannelDescription}
+        handle={channelHandle}
+        onHandleChange={setChannelHandle}
       />
 
       <div className="flex items-center justify-between gap-2">

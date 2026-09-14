@@ -5,6 +5,8 @@ import { ChannelHeader } from "./ChannelHeader";
 import { ChannelTabs, type ChannelTab } from "./ChannelTabs";
 import { ChannelVideoGrid } from "./ChannelVideoGrid";
 import { useThumbnailsContext } from "@/context/ThumbnailsContext";
+import { useChannelVideos } from "@/hooks/useChannelVideos";
+import { MAX_CHANNEL_FILLER_COUNT } from "@/lib/constants";
 
 interface ChannelPageProps {
   isMobile: boolean;
@@ -18,7 +20,10 @@ export function ChannelPage({ isMobile }: ChannelPageProps) {
     channelBannerUrl,
     channelSubscriberCount,
     channelDescription,
+    channelHandle,
   } = useThumbnailsContext();
+  const mockVideos = useChannelVideos(channelHandle);
+  const fillerCount = Math.min(mockVideos.length, MAX_CHANNEL_FILLER_COUNT);
   const [activeTab, setActiveTab] = useState<ChannelTab>("home");
 
   return (
@@ -29,7 +34,7 @@ export function ChannelPage({ isMobile }: ChannelPageProps) {
         avatarUrl={globalChannelAvatarUrl}
         channelName={globalChannelName}
         subscriberCount={channelSubscriberCount}
-        videoCount={thumbnails.length}
+        videoCount={thumbnails.length + fillerCount}
         description={channelDescription}
       />
       <ChannelTabs activeTab={activeTab} onChange={setActiveTab} />

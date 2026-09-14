@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/Input";
 import { ChannelAvatarUploader } from "./ChannelAvatarUploader";
 import { ChannelBannerUploader } from "./ChannelBannerUploader";
 import { generateLoremText } from "@/lib/utils";
+import { fetchChannelByHandle } from "@/components/youtube-preview/youtubeApi";
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -44,6 +45,9 @@ interface ChannelSettingsPanelProps {
   onSubscriberCountChange: (value: string) => void;
   description: string;
   onDescriptionChange: (value: string) => void;
+  onAvatarUrlChange: (url: string) => void;
+  handle: string;
+  onHandleChange: (value: string) => void;
 }
 
 export function ChannelSettingsPanel({
@@ -57,8 +61,27 @@ export function ChannelSettingsPanel({
   onSubscriberCountChange,
   description,
   onDescriptionChange,
+  onAvatarUrlChange,
+  handle,
+  onHandleChange,
 }: ChannelSettingsPanelProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFetchingChannel, setIsFetchingChannel] = useState(false);
+
+  async function handleFillFromChannel() {
+    const trimmed = handle.trim();
+    if (!trimmed || isFetchingChannel) return;
+
+    setIsFetchingChannel(true);
+    const data = await fetchChannelByHandle(trimmed);
+    setIsFetchingChannel(false);
+
+    if (!data) return;
+    onChannelNameChange(data.channelName);
+    onSubscriberCountChange(data.subscriberCount);
+    onDescriptionChange(data.description);
+    if (data.channelAvatarUrl) onAvatarUrlChange(data.channelAvatarUrl);
+  }
 
   return (
     <div className="flex flex-col gap-3 border-b border-neutral-200 pb-4 dark:border-slate-600">
@@ -119,6 +142,38 @@ export function ChannelSettingsPanel({
                 <SparkleIcon />
               </button>
             </div>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <span className="text-xs font-medium text-neutral-600 dark:text-slate-400">
+              @ do canal (opcional)
+            </span>
+            <div className="relative">
+              <Input
+                placeholder="@nomedocanal"
+                value={handle}
+                style={{ paddingRight: "2.25rem" }}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  onHandleChange(event.target.value)
+                }
+              />
+              <button
+                type="button"
+                aria-label="Preencher nome, inscritos e descrição com os dados reais desse canal"
+                title="Preencher com dados reais do canal"
+                onClick={handleFillFromChannel}
+                disabled={!handle.trim() || isFetchingChannel}
+                className="absolute top-1/2 right-1.5 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded text-neutral-500 hover:bg-neutral-300 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent dark:text-slate-400 dark:hover:bg-slate-500 dark:hover:text-slate-100"
+              >
+                <SparkleIcon />
+              </button>
+            </div>
+            <p className="text-xs text-neutral-400 dark:text-slate-500">
+              Se preenchido, os vídeos de preenchimento na aba &quot;Canal&quot;
+              se somam aos seus (precisa da chave da API do YouTube
+              configurada e o canal ser público). Use o botão de brilho pra
+              preencher foto, nome, inscritos e descrição com os dados reais
+              desse canal também.
+            </p>
           </div>
         </div>
       )}

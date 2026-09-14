@@ -1,1 +1,2 @@
 export const DEFAULT_VISIBLE_VIDEO_COUNT = 18;
+export const MAX_CHANNEL_FILLER_COUNT = 10;
